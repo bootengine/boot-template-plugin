@@ -21,7 +21,7 @@ managed = true
 dev-dependencies = []
 
 [tool.rye.scripts]
-wasm = "extism-py ./src/boot_template_plugin/__init__.py -o plugin.wasm"
+wasm = {cmd = "extism-py ./src/boot_template_plugin/__init__.py -o plugin.wasm", env = {PYTHONPATH= "/home/egmar/Documents/projects/boot-template-plugin/.venv/lib/python3.12/site-packages"} }
 
 [tool.hatch.metadata]
 allow-direct-references = true

@@ -1,2 +1,2 @@
-extism call plugin.wasm render --config values="{\"user\":\"toto\"}" --input="hello from {{user}}" --wasi
+extism call ~/Documents/projects/boot-template-plugin/plugin.wasm applyTemplate --config values="{\"user\":\"toto\"}" --input="hello from {{user}}" --wasi
 
