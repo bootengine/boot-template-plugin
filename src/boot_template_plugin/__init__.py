@@ -1,12 +1,13 @@
 import extism
-from jinja2 import Environment, BaseLoader
+from jinja2 import Template
 
 
 @extism.plugin_fn
 def applyTemplate():
-    templateString = extism.input_str()
-    values = extism.Config.get_json("values")
-    rtemplate = Environment(loader=BaseLoader).from_string(templateString)
+    templateString = extism.input_json()
 
-    extism.log(extism.LogLevel.Info, values)
+    values = templateString["values"]
+
+    rtemplate = Template(templateString["template"])
+
     extism.output_str(rtemplate.render(values))
