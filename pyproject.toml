@@ -1,7 +1,7 @@
 [project]
 name = "boot-template-plugin"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.9.0"
+description = "template plugin for boot using jinja2"
 authors = [
     { name = "mJehanno", email = "mathob.jehanno@hotmail.fr" }
 ]
@@ -21,7 +21,7 @@ managed = true
 dev-dependencies = []
 
 [tool.rye.scripts]
-wasm = {cmd = "extism-py ./src/boot_template_plugin/__init__.py -o plugin.wasm", env = {PYTHONPATH= "/home/egmar/Documents/projects/boot-template-plugin/.venv/lib/python3.12/site-packages"} }
+wasm = {cmd = "extism-py ./src/boot_template_plugin/__init__.py -o boot-template-plugin.wasm", env= {PYTHONPATH=".venv/lib/python3.12/site-packages"} }
 
 [tool.hatch.metadata]
 allow-direct-references = true

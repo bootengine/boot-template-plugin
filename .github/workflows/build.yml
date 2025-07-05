@@ -1,0 +1,38 @@
+on:
+  push:
+   tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    container: ubuntu:latest
+    steps:
+      - name: Setup
+        run: | 
+          apt update
+          export DEBIAN_FRONTEND=noninteractive; apt install python3 sudo build-essential curl nodejs -y
+          curl -Ls https://raw.githubusercontent.com/extism/python-pdk/main/install.sh | bash
+      - name: Install Rye
+        uses: eifinger/setup-rye@v4
+        with:
+          version: 'latest'
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          rye sync -f
+          . .venv/bin/activate
+      - name: Build wasm file
+        run:  | 
+          rye run wasm
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+      - name: Create Release
+        uses: softprops/action-gh-release@v2 # mikepenz/action-gh-release@v0.2.0-a03
+        with:
+          body: ${{steps.build_changelog.outputs.changelog}}
+          files: |
+            boot-template-plugin.wasm
+            LICENSE
+          token: ${{ secrets.GITHUB_TOKEN }}
